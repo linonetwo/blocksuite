@@ -66,7 +66,7 @@ export class LinkNodeComponent extends LitElement {
     assertExists(blot);
     const text = blot.domNode.textContent ?? undefined;
 
-    hotkey.withDisableHotkey(async () => {
+    hotkey.withDisabledHotkey(async () => {
       const linkState = await showLinkPopover({
         anchorEl: e.target as HTMLElement,
         text,
@@ -103,8 +103,10 @@ export class LinkNodeComponent extends LitElement {
       const offset = blot.offset();
       space.captureSync();
       // TODO save the format of the original text
+      // for make a distinction between user type in and set
       model.text?.delete(offset, blot.length());
-      model.text?.insert(text, offset, { link });
+      model.text?.insert(text, offset);
+      model.text?.format(offset, text.length, { link });
     } else {
       space.captureSync();
       model.text?.format(blot.offset(), blot.length(), { link });

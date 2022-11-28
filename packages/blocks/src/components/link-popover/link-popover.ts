@@ -91,6 +91,7 @@ export class LinkPopover extends LitElement {
 
   override connectedCallback() {
     super.connectedCallback();
+
     if (this.showMask) {
       // Disable body scroll
       this.bodyOverflowStyle = document.body.style.overflow;
@@ -108,6 +109,7 @@ export class LinkPopover extends LitElement {
 
   override disconnectedCallback() {
     super.disconnectedCallback();
+
     if (this.showMask) {
       // Restore body scroll style
       document.body.style.overflow = this.bodyOverflowStyle;
@@ -233,25 +235,31 @@ export class LinkPopover extends LitElement {
    */
   editTemplate() {
     return html`<div class="affine-link-edit-popover">
-      <label class="affine-edit-text-text" for="text-input">Text</label>
-      <input
-        class="affine-edit-text-input"
-        id="text-input"
-        type="text"
-        placeholder="Enter text"
-        value=${this.text}
-        @keyup=${this.onKeyup}
-      />
-      <label class="affine-edit-link-text" for="link-input">Link</label>
-      <input
-        id="link-input"
-        class="affine-edit-link-input"
-        type="text"
-        spellcheck="false"
-        placeholder="Paste or type a link"
-        value=${this.previewLink}
-        @keyup=${this.onKeyup}
-      />
+      <div class="affine-edit-text-area">
+        <input
+          class="affine-edit-text-input"
+          id="text-input"
+          type="text"
+          placeholder="Enter text"
+          value=${this.text}
+          @keyup=${this.onKeyup}
+        />
+        <span class="affine-link-popover-dividing-line"></span>
+        <label class="affine-edit-text-text" for="text-input">Text</label>
+      </div>
+      <div class="affine-edit-link-area">
+        <input
+          id="link-input"
+          class="affine-edit-link-input"
+          type="text"
+          spellcheck="false"
+          placeholder="Paste or type a link"
+          value=${this.previewLink}
+          @keyup=${this.onKeyup}
+        />
+        <span class="affine-link-popover-dividing-line"></span>
+        <label class="affine-edit-link-text" for="link-input">Link</label>
+      </div>
       ${this.confirmBtnTemplate()}
     </div>`;
   }
